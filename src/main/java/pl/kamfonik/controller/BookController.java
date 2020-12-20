@@ -2,6 +2,7 @@ package pl.kamfonik.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import pl.kamfonik.exceptions.BadBookRequestException;
 import pl.kamfonik.models.Book;
 import pl.kamfonik.services.BookService;
 
@@ -17,26 +18,33 @@ public class BookController {
     public BookController(BookService bookService){
         this.bookService = bookService;
     }
-/*
-    @RequestMapping("/helloBook")
-    public Book helloBook() {
-        return new Book(1L, "9788324631766", "Thinking in Java",
-                "Bruce Eckel", "Helion", "programming");
-    }
-*/
+
     @GetMapping("")
     public List<Book> getAllBooks(){
         return bookService.getBooksList();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id:\\d+}")
     public Book getBook(@PathVariable(name = "id") Long id){
         return bookService.getBook(id);
     }
 
     @PostMapping("")
     public void addBook(@RequestBody Book book){
+        if (book == null) throw new BadBookRequestException();
         bookService.addBook(book);
+    }
+
+    @PutMapping("/{id:\\d+}")
+    public void updateBook(@PathVariable(name = "id") Long id, @RequestBody Book book){
+        if (book == null) throw new BadBookRequestException();
+        book.setId(id);
+        bookService.updateBook(book);
+    }
+
+    @DeleteMapping("/{id:\\d+}")
+    public void deleteBook(@PathVariable(name = "id") Long id){
+        bookService.deleteBook(id);
     }
 }
 

@@ -1,0 +1,21 @@
+POST http://localhost:8080/books
+Content-Type: application/json
+
+{"isbn":"34321","title":"Thinking in Java", "publisher":"Helion","type":"programming", "author":"Bruce Eckel"}
+
+###
+
+PUT http://localhost:8080/books/1
+Content-Type: application/json
+
+{"isbn":"111111","title":"Thinking in12312312 Java", "publisher":"Helionadsffad","type":"programming123", "author":"Bruasdfce Eckadfel"}
+
+###
+
+DELETE http://localhost:8080/books/1
+
+###
+
+PUT http://localhost:8080/books/1
+
+###
