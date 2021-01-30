@@ -7,9 +7,9 @@ import pl.kamfonik.models.Book;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
-@Primary
 public class MemoryBookService implements BookService {
     private Long nextId;
     private final List<Book> booksList;
@@ -25,11 +25,14 @@ public class MemoryBookService implements BookService {
     }
 
     @Override
-    public Book getBook(Long id) {
-        return new Book(booksList.stream()  // return a copy to avoid changing book outside of service
+    public Optional<Book> getBook(Long id) {
+        Optional<Book> book = booksList.stream()
                 .filter(b -> b.getId().equals(id))
-                .findAny()
-                .orElseThrow(NoSuchBookException::new));
+                .findAny();
+        if(book.isEmpty()){
+            return  book;
+        }
+        return Optional.of(new Book(book.get())); // return a copy to avoid changing book outside of service
     }
 
     @Override

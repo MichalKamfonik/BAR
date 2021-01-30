@@ -3,6 +3,7 @@ package pl.kamfonik.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.kamfonik.exceptions.BadBookRequestException;
+import pl.kamfonik.exceptions.NoSuchBookException;
 import pl.kamfonik.models.Book;
 import pl.kamfonik.services.BookService;
 
@@ -26,7 +27,7 @@ public class BookController {
 
     @GetMapping("/{id:\\d+}")
     public Book getBook(@PathVariable(name = "id") Long id){
-        return bookService.getBook(id);
+        return bookService.getBook(id).orElseThrow(NoSuchBookException::new);
     }
 
     @PostMapping("")
