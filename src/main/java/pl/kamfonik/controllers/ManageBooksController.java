@@ -3,11 +3,13 @@ package pl.kamfonik.controllers;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.kamfonik.exceptions.NoSuchBookException;
 import pl.kamfonik.models.Book;
 import pl.kamfonik.services.BookService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -32,7 +34,10 @@ public class ManageBooksController {
         return "/books/add";
     }
     @PostMapping("/add")
-    public String add(@ModelAttribute Book book) {
+    public String add(@Valid @ModelAttribute Book book, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            return "/books/add";
+        }
         bookService.addBook(book);
         return "redirect:/admin/books/all";
     }
@@ -44,7 +49,10 @@ public class ManageBooksController {
         return "/books/edit";
     }
     @PostMapping("/edit/{id}")
-    public String edit(@ModelAttribute Book book,@PathVariable Long id) {
+    public String edit(@Valid @ModelAttribute Book book, BindingResult bindingResult,@PathVariable Long id) {
+        if(bindingResult.hasErrors()){
+            return "/books/edit";
+        }
         log.debug("Edited book ID= {}",book.getId());
         bookService.updateBook(book);
         return "redirect:/admin/books/all";

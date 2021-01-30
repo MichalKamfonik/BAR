@@ -4,8 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.ISBN;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "books")
@@ -17,10 +21,23 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull
+    @ISBN
     private String isbn;
+    @NotNull
+    @NotBlank
     private String title;
+    @NotNull
+    @Length(min = 2)
+    @NotBlank
     private String author;
+    @NotNull
+    @Length(min = 2)
+    @NotBlank
     private String publisher;
+    @NotNull
+    @Length(min = 2)
+    @NotBlank
     private String type;
 
     public Book(Book book){
