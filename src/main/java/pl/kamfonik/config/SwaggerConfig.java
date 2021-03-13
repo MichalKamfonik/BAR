@@ -17,7 +17,7 @@ public class SwaggerConfig {
     @Bean
     public Docket api() {
         ApiInfo apiInfo = new ApiInfoBuilder()
-                .title("BooK Api Restful")
+                .title("Book Api Restful")
                 .description("Restful Api for Books")
                 .build();
 
