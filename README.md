@@ -26,7 +26,7 @@ This application makes you able to manage your books in MySQL Database using not
     * .../books/{id} (DELETE) - *delete the book with given ID*
 1. WebMVC controller
 
-    This controller gives you a graphic interface for managing the books. It provides following endpoints:
+    This controller gives you a graphic interface for managing your books. It provides following endpoints:
     * .../admin/books/all - *list all books*
     * .../admin/books/add - *add a book*
     * .../admin/books/show/{id} - *show details of the book with given ID*
